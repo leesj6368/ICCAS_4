@@ -21,18 +21,18 @@ public class DataBase : MonoBehaviour
 
     private void DisplayPlayfabError(PlayFabError error) => Debug.LogError("error : " + error.GenerateErrorReport());
 
-    #region »ç¿ëÇÒ µ¥ÀÌÅÍ º¯¼ö ¼±¾ğ ¹× ÃÊ±âÈ­
+    #region ì‚¬ìš©í•  ë°ì´í„° ë³€ìˆ˜ ì„ ì–¸ ë° ì´ˆê¸°í™”
     public PlayerData playerData = new PlayerData();
     public CharacterData enemyData = new CharacterData();
     #endregion
 
-    #region µ¥ÀÌÅÍ °ü¸®
-    // µ¥ÀÌÅÍ ÀúÀå
+    #region ë°ì´í„° ê´€ë¦¬
+    // ë°ì´í„° ì €ì¥
     public void SaveJsonToPlayfab()
     {
         Dictionary<string, string> dataDic = new Dictionary<string, string>();
 
-        // µ¥ÀÌÅÍ ÀúÀåÇÏ±â Ãß°¡
+        // ë°ì´í„° ì €ì¥í•˜ê¸° ì¶”ê°€
         dataDic.Add("DataContent", JsonUtility.ToJson(playerData));
         dataDic.Add("DataContent1", JsonUtility.ToJson(enemyData));
 
@@ -56,17 +56,17 @@ public class DataBase : MonoBehaviour
         }
     }
 
-    // µ¥ÀÌÅÍ ºÒ·¯¿À±â
+    // ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸°
     public void GetUserData()
     {
-        var request = new GetUserDataRequest() { PlayFabId = PlayFabLogin.instance.myID };
+        var request = new GetUserDataRequest() { PlayFabId = PlayFabManager.instance.myID };
         PlayFabClientAPI.GetUserData(request, (result) =>
         {
             foreach (var eachData in result.Data)
             {
                 string key = eachData.Key;
 
-                // µ¥ÀÌÅÍ ºÒ·¯¿À±â Ãß°¡
+                // ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸° ì¶”ê°€
                 if (key == "DataContent")
                 {
                     playerData = JsonUtility.FromJson<PlayerData>(eachData.Value.Value);
@@ -95,7 +95,7 @@ public struct PlayerData
     public int curStage;
     public int topStage;
 
-    // Daily ÆÇ´Ü
+    // Daily íŒë‹¨
     public bool isSurvey;
 }
 
